@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "name": "Admin Lead",
+    "email": "admin@wondercave.nayem.net",
+    "password": "password123",
+    "role": "Enterprise",
+    "blocked": false,
+    "createdAt": "2026-01-01T00:00:00.000Z"
+  },
+  {
+    "id": 2,
+    "name": "Tester",
+    "email": "test@wondercave.nayem.net",
+    "password": "password123",
+    "role": "Pro",
+    "blocked": false,
+    "createdAt": "2026-01-01T00:00:00.000Z"
+  }
+]

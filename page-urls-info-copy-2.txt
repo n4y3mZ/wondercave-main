@@ -1,0 +1,8 @@
+1. /products/vulnerability-scanner: Information about the web vulnerability scanner tool, features, specs. 1 hero image, 1 feature image.
+2. /products/suite-editions: Comparison of WonderCave Suite editions (Free, Pro, Enterprise). 1 hero image.
+3. /release-notes: A changelog of recent updates. 1 hero image.
+4. /customers/organizations: How organizations use the tools. 1 hero image.
+5. /customers/testers: How testers benefit. 1 hero image.
+6. /customers/developers: How developers benefit. 1 hero image.
+7. /contact: Contact form and locations. 1 hero image.
+8. /academy: WonderCave main page with courses list. 1 hero image.

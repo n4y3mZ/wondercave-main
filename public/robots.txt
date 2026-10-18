@@ -1,0 +1,8 @@
+# Robots.txt for WonderCave
+# Created and maintained by Nayem Hasan (wondercave.nayem.net)
+
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://wondercave.nayem.net/sitemap.xml

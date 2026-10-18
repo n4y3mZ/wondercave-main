@@ -1,0 +1,217 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+@import "tailwindcss";
+@import "tw-animate-css";
+@plugin "@tailwindcss/typography";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+    --font-heading: 'Poppins', sans-serif;
+    --font-sans: 'Poppins', sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+    --font-accent: 'Poppins', sans-serif;
+    
+    --color-brand-primary: #FF5A36;
+    --color-action-iris: #111A4D;
+    --color-bg-peach: #E9ECEF;
+    --color-text-onyx: #050812;
+    --color-ui-success: #38A169;
+    --color-bg-field: #DEE2E6;
+    --color-bg-canvas: #E9ECEF;
+    --color-border-soft: rgba(14, 14, 44, 0.12);
+    --color-sidebar-ring: var(--sidebar-ring);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar: var(--sidebar);
+    --color-chart-5: var(--chart-5);
+    --color-chart-4: var(--chart-4);
+    --color-chart-3: var(--chart-3);
+    --color-chart-2: var(--chart-2);
+    --color-chart-1: var(--chart-1);
+    --color-ring: var(--ring);
+    --color-input: var(--input);
+    --color-border: var(--border);
+    --color-destructive: var(--destructive);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-accent: var(--accent);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-muted: var(--muted);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-secondary: var(--secondary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-primary: var(--primary);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-popover: var(--popover);
+    --color-card-foreground: var(--card-foreground);
+    --color-card: var(--card);
+    --color-foreground: var(--foreground);
+    --color-background: var(--background);
+    --radius-sm: 0px;
+    --radius-md: 0px;
+    --radius-lg: 0px;
+    --radius-xl: 0px;
+    --radius-2xl: 0px;
+    --radius-3xl: 0px;
+    --radius-4xl: 0px;
+    --radius: 0px;
+}
+
+:root {
+    --background: #E9ECEF;
+    --foreground: #050812;
+    --card: #FFFFFF;
+    --card-foreground: #050812;
+    --popover: #FFFFFF;
+    --popover-foreground: #050812;
+    --primary: #111A4D;
+    --primary-foreground: #FFFFFF;
+    --secondary: #DEE2E6;
+    --secondary-foreground: #111A4D;
+    --muted: #E2E6EA;
+    --muted-foreground: #495057;
+    --accent: #E2E6EA;
+    --accent-foreground: #111A4D;
+    --destructive: #DC2626;
+    --border: #CED4DA;
+    --input: #CED4DA;
+    --ring: #111A4D;
+    --chart-1: #2563EB;
+    --chart-2: #38A169;
+    --chart-3: #FF5A36;
+    --chart-4: #4B5563;
+    --chart-5: #111A4D;
+    --radius: 0px;
+    --sidebar: #FFFFFF;
+    --sidebar-foreground: #050812;
+    --sidebar-primary: #111A4D;
+    --sidebar-primary-foreground: #FFFFFF;
+    --sidebar-accent: #DEE2E6;
+    --sidebar-accent-foreground: #111A4D;
+    --sidebar-border: #CED4DA;
+    --sidebar-ring: #111A4D;
+}
+
+.dark {
+    --background: #15181C;
+    --foreground: #F8F9FA;
+    --card: #1F242B;
+    --card-foreground: #F8F9FA;
+    --popover: #1F242B;
+    --popover-foreground: #F8F9FA;
+    --primary: #FFFFFF;
+    --primary-foreground: #111A4D;
+    --secondary: #2B303A;
+    --secondary-foreground: #F8F9FA;
+    --muted: #2B303A;
+    --muted-foreground: #94A3B8;
+    --accent: #2B303A;
+    --accent-foreground: #F8F9FA;
+    --destructive: #EF4444;
+    --border: rgba(255, 255, 255, 0.12);
+    --input: rgba(255, 255, 255, 0.15);
+    --ring: #94A3B8;
+    --chart-1: #3B82F6;
+    --chart-2: #10B981;
+    --chart-3: #F97316;
+    --chart-4: #64748B;
+    --chart-5: #6366F1;
+    --radius: 0px;
+    --sidebar: #1F242B;
+    --sidebar-foreground: #F8F9FA;
+    --sidebar-primary: #3B82F6;
+    --sidebar-primary-foreground: #FFFFFF;
+    --sidebar-accent: #2B303A;
+    --sidebar-accent-foreground: #F8F9FA;
+    --sidebar-border: rgba(255, 255, 255, 0.12);
+    --sidebar-ring: #94A3B8;
+}
+
+@layer base {
+  *, ::before, ::after {
+    border-radius: 0px !important;
+  }
+  /* Keep loading icons and spinners strictly at 100% circular radius */
+  .animate-spin,
+  [class*="animate-spin"],
+  .spinner,
+  .loading-spinner,
+  .loading-icon,
+  .loader,
+  svg.animate-spin,
+  div.animate-spin {
+    border-radius: 100% !important;
+  }
+  html, body, p, span, div, h1, h2, h3, h4, h5, h6, a, button, input, textarea, select, blockquote, figcaption, em, i, cite, dfn, var {
+    font-family: 'Poppins', sans-serif !important;
+    font-style: normal !important;
+  }
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-style: normal !important;
+  }
+  button, input, textarea, select {
+    border-radius: 0px !important;
+    font-style: normal !important;
+  }
+}
+
+/* High Specificity Global Scrollbar Suppression for Touch & Mobile */
+.no-scrollbar,
+.scrollbar-none,
+[class*="no-scrollbar"],
+[class*="scrollbar-none"] {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.no-scrollbar::-webkit-scrollbar,
+.scrollbar-none::-webkit-scrollbar,
+[class*="no-scrollbar"]::-webkit-scrollbar,
+[class*="scrollbar-none"]::-webkit-scrollbar {
+  display: none !important;
+  width: 0px !important;
+  height: 0px !important;
+  background: transparent !important;
+  -webkit-appearance: none !important;
+}
+
+/* Code Block & Syntax Highlighting - Guaranteed High Contrast */
+pre,
+pre code,
+.prose pre,
+.prose pre code,
+div.not-prose pre,
+div.not-prose pre code {
+  background-color: #0B1120 !important;
+  color: #38BDF8 !important;
+  border-color: #334155 !important;
+  font-family: 'IBM Plex Mono', monospace !important;
+}
+
+code {
+  font-family: 'IBM Plex Mono', monospace !important;
+}
+
+/* Distinct high-contrast inline code */
+:not(pre) > code,
+.prose :not(pre) > code {
+  background-color: #E2E8F0 !important;
+  color: #0F172A !important;
+  border: 1px solid #CBD5E1 !important;
+  padding: 0.125rem 0.35rem !important;
+  font-size: 0.85em !important;
+  border-radius: 0px !important;
+}
+
+.dark :not(pre) > code,
+.dark .prose :not(pre) > code {
+  background-color: #1E293B !important;
+  color: #38BDF8 !important;
+  border: 1px solid #334155 !important;
+}

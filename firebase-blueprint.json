@@ -1,0 +1,114 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "Authenticated user profile, onboarding data, and clearance tier",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Firebase Auth UID" },
+        "email": { "type": "string", "description": "User email address" },
+        "displayName": { "type": "string", "description": "User full display name" },
+        "photoURL": { "type": "string", "description": "Avatar photo URL" },
+        "role": { "type": "string", "description": "Clearance: admin, editor, member", "enum": ["admin", "editor", "member"] },
+        "status": { "type": "string", "description": "Account status: approved or pending_approval", "enum": ["approved", "pending_approval", "suspended"] },
+        "onboardingCompleted": { "type": "boolean", "description": "Whether user filled mandatory information form" },
+        "organization": { "type": "string", "description": "Company, university, or research team" },
+        "jobTitle": { "type": "string", "description": "Primary security or dev role" },
+        "interestArea": { "type": "string", "description": "Security focus area" },
+        "country": { "type": "string", "description": "Country / geographical region" },
+        "bio": { "type": "string", "description": "Short technical background statement" },
+        "contactHandle": { "type": "string", "description": "LinkedIn, GitHub, or X handle" },
+        "createdAt": { "type": "string", "description": "ISO timestamp of account creation" }
+      },
+      "required": ["id", "email"]
+    },
+    "Page": {
+      "title": "Content Page",
+      "description": "Security course, topic, or article payload",
+      "type": "object",
+      "properties": {
+        "slug": { "type": "string", "description": "Page route slug identifier" },
+        "title": { "type": "string", "description": "Article or topic heading" },
+        "subtitle": { "type": "string", "description": "Subtitle summary" },
+        "content": { "type": "string", "description": "Full markdown body of the post" },
+        "imageUrl": { "type": "string", "description": "Header image URL" },
+        "updatedAt": { "type": "string", "description": "Timestamp of last edit" }
+      },
+      "required": ["slug", "title", "content"]
+    },
+    "Telemetry": {
+      "title": "User Telemetry Record",
+      "description": "Logged-in user network IP, timestamp, and device display telemetry",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique event identifier" },
+        "userId": { "type": "string", "description": "User identifier" },
+        "userEmail": { "type": "string", "description": "User email address" },
+        "ip": { "type": "string", "description": "Client IP address" },
+        "timestamp": { "type": "string", "description": "ISO timestamp of login" },
+        "screenResolution": { "type": "string", "description": "Display screen width x height" },
+        "viewportSize": { "type": "string", "description": "Browser viewport inner width x height" },
+        "devicePixelRatio": { "type": "number", "description": "Display device pixel ratio" },
+        "userAgent": { "type": "string", "description": "Browser user agent" },
+        "role": { "type": "string", "description": "User access tier at login" }
+      },
+      "required": ["id", "userEmail", "timestamp"]
+    },
+    "PostSubmission": {
+      "title": "Community Post Submission",
+      "description": "User-written post submitted for administrator or editor review",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Submission identifier" },
+        "authorId": { "type": "string", "description": "User UID who drafted the post" },
+        "authorEmail": { "type": "string", "description": "User email" },
+        "authorName": { "type": "string", "description": "User display name" },
+        "title": { "type": "string", "description": "Post title" },
+        "subtitle": { "type": "string", "description": "Post subtitle" },
+        "category": { "type": "string", "description": "Category selection" },
+        "tags": { "type": "string", "description": "Comma-separated tags" },
+        "content": { "type": "string", "description": "Markdown body content" },
+        "heroImage": { "type": "string", "description": "Optional hero banner image URL" },
+        "status": { "type": "string", "description": "Review status: pending_review, approved, rejected", "enum": ["pending_review", "approved", "rejected"] },
+        "submittedAt": { "type": "string", "description": "Submission ISO timestamp" },
+        "reviewedAt": { "type": "string", "description": "Review completion timestamp" },
+        "reviewerEmail": { "type": "string", "description": "Admin or editor who reviewed" }
+      },
+      "required": ["id", "authorEmail", "title", "content", "status"]
+    },
+    "LabProgress": {
+      "title": "Lab Progress",
+      "description": "User completion status for an interactive lab",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "Owner user UID" },
+        "labSlug": { "type": "string", "description": "Identifier of the completed lab" },
+        "completed": { "type": "boolean", "description": "Completion flag" },
+        "completedAt": { "type": "string", "description": "Completion timestamp" }
+      },
+      "required": ["userId", "labSlug", "completed"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "User profiles stored per UID"
+    },
+    "/pages/{slug}": {
+      "schema": { "$ref": "#/entities/Page" },
+      "description": "Content pages and security posts"
+    },
+    "/telemetry/{telemetryId}": {
+      "schema": { "$ref": "#/entities/Telemetry" },
+      "description": "Login telemetry records and IP audit logs"
+    },
+    "/post_submissions/{submissionId}": {
+      "schema": { "$ref": "#/entities/PostSubmission" },
+      "description": "User draft post submissions for admin review"
+    },
+    "/users/{userId}/progress/{labSlug}": {
+      "schema": { "$ref": "#/entities/LabProgress" },
+      "description": "Lab progress tracked per user"
+    }
+  }
+}

@@ -1,0 +1,74 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default Deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        request.auth.token.email.lower() == 'ankoretech@gmail.com'
+      );
+    }
+
+    function isEditorOrAdmin() {
+      return isSignedIn() && (
+        request.auth.token.email.lower() == 'ankoretech@gmail.com' ||
+        request.auth.token.email.lower() == 'nxyxmz@gmail.com'
+      );
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // Public content & security posts
+    match /pages/{slug} {
+      allow read: if true;
+      allow write: if isEditorOrAdmin();
+    }
+
+    // User profiles & onboarding data
+    match /users/{userId} {
+      allow read: if isSignedIn();
+      allow create, update: if (isOwner(userId) || isEditorOrAdmin()) && isValidId(userId);
+      allow delete: if isAdmin();
+
+      // Per-user lab progress
+      match /progress/{labSlug} {
+        allow read, write: if isOwner(userId) && isValidId(labSlug);
+      }
+    }
+
+    // Logged in user network telemetry (IP, date, screen resolution, viewport)
+    match /telemetry/{telemetryId} {
+      allow create: if isSignedIn() && isValidId(telemetryId);
+      allow read: if isEditorOrAdmin();
+      allow update, delete: if isAdmin();
+    }
+
+    // User submitted posts awaiting admin/editor review
+    match /post_submissions/{submissionId} {
+      allow create: if isSignedIn() && isValidId(submissionId);
+      allow read: if isSignedIn() && (
+        resource.data.authorId == request.auth.uid ||
+        isEditorOrAdmin()
+      );
+      allow update: if isEditorOrAdmin() || (
+        isSignedIn() && 
+        resource.data.authorId == request.auth.uid && 
+        resource.data.status == 'pending_review'
+      );
+      allow delete: if isAdmin();
+    }
+  }
+}
